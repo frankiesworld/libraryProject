@@ -18,17 +18,18 @@ function Book (title, author, pages, read) {
 
                     
 
-const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
-
-book1.info();
-book1.toggleRead();
 
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-    render();
+
+function addBookToLibrary(title, author, pages, read) {
+    
+    const addedBook = new Book(title, author, pages, read);
+    myLibrary.push(addedBook);
+
 }
 
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, true);
 
-const info = document.getElementById("bookList");
+
+const bookList = document.getElementById("bookList");
 const form = document.getElementById("bookForm");
