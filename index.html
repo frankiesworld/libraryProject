@@ -17,27 +17,32 @@
         <div class="layout">
             <h1>Book Menu</h1>
             <p>This is where we will input our book form to add a book or maybe button?</p>
-            <form id="bookForm">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title">
 
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author">
+            <button id="newBook">New Book</button>
+                <dialog id="dialog">
+                    <form id="bookForm">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required >
 
-                <label for="pages">Pages:</label>
-                <input type="number" id="pages" name="pages">
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" required >
 
-                <label for="read">Read?</label>
-                <input type="checkbox" id="read" name="read">
+                        <label for="pages">Pages:</label>
+                        <input type="number" id="pages" name="pages" min="1" required >
 
-                <button type="submit" id="btn">Add Book</button>
-            </form>
+                        <label for="read">Read?</label>
+                        <input type="checkbox" id="read" name="read">
+
+                        <button type="button" id="cancelDialog">Cancel</button>
+                        <button type="submit" id="addBtn">Add Book</button>
+                    </form>
+                </dialog>
         </div>
 
         <div class="layout">
             <h1>Archive</h1>
             <p>the list of books in our library, will be in display cards and option to mark read and delete</p>
-            <div id="bookList">display</div>
+            <div id="bookList"></div>
         </div>
     </div>
 

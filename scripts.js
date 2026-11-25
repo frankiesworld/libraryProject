@@ -1,6 +1,36 @@
 
 const bookList = document.getElementById("bookList");
 const form = document.getElementById("bookForm");
+const newBookBtn = document.getElementById("newBook");
+const dialog = document.getElementById("dialog");
+const cancelDialogBtn = document.getElementById("cancelDialog");
+
+
+
+
+newBookBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+cancelDialogBtn.addEventListener("click", () => {
+    dialog.close();
+});
+
+form.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+    const title = form.elements.title.value;
+    const author = form.author.value;
+    const pages = Number(form.pages.value);
+    const read = form.read.checked;
+
+    addBookToLibrary(title, author, pages, read);
+
+    dialog.close();
+    form.reset();
+});
+
+
 
 
 
@@ -12,16 +42,16 @@ function Book (title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function() {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read yet"}`;
-    };
-    this.toggleRead = function() {
-        this.read = !this.read;
-    };
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
 
+Book.prototype.info = function() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read yet"}`;
+}
                     
 function addBookToLibrary(title, author, pages, read) {
     
@@ -54,16 +84,26 @@ function displayBooks() {
         const readBtn = document.createElement("button");
 
         card.className = "book-card";
-        card.innerHTML = `
-            <h2>${book.title}</h2>
-            <p>by ${book.author}</p>
-            <p>${book.pages} pages</p>
-            <p>${book.read ? "Read" : "Not Read Yet"}</p>`;
+        
+        const title = document.createElement("h2");
+        title.textContent = book.title;
+
+        const author = document.createElement("p");
+        author.textContent = `by ${book.author}`;
+
+        const pages = document.createElement("p");
+        pages.textContent = `${book.pages} pages`;
+
+        const status = document.createElement("p");
+        status.textContent = book.read ? "Read" : "Not Read Yet";
+
+        card.append(title, author, pages, status);
 
         readBtn.className = "read-btn";
         readBtn.textContent = "Read";
         readBtn.addEventListener("click", () => {
-            book.read = !book.read;
+            book.toggleRead();
+
             displayBooks();
             });
 
